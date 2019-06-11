@@ -260,6 +260,13 @@ def make_averaged(fn, num_samples=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def average_samples(*args):
+        SUM = 0
+        for i in range(num_samples):
+            SUM += fn(*args)
+        average = SUM / num_samples
+        return average
+    return average_samples
     # END PROBLEM 8
 
 
@@ -274,6 +281,12 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    result = []
+    for i in range(10):
+        score_average = make_averaged(roll_dice, num_samples)
+        result.append(score_average(i + 1, dice))
+    max_num = result.index(max(result)) + 1
+    return max_num
     # END PROBLEM 9
 
 
@@ -321,8 +334,10 @@ def bacon_strategy(score, opponent_score, margin=8, num_rolls=4):
     """This strategy rolls 0 dice if that gives at least MARGIN points, and
     rolls NUM_ROLLS otherwise.
     """
-    # BEGIN PROBLEM 10
-    return 4  # Replace this statement
+    # BEGIN PROBLEM 10 
+    if free_bacon(opponent_score) >= margin:
+        return 0
+    return num_rolls
     # END PROBLEM 10
 
 
@@ -332,7 +347,12 @@ def swap_strategy(score, opponent_score, margin=8, num_rolls=4):
     non-beneficial swap. Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 4  # Replace this statement
+    bacon_score = score + free_bacon(opponent_score)
+    if is_swap(bacon_score, opponent_score):
+        bacon_score, opponent_score = opponent_score, bacon_score
+    if bacon_score - score >= margin:
+        return 0
+    return num_rolls 
     # END PROBLEM 11
 
 
@@ -342,7 +362,12 @@ def final_strategy(score, opponent_score):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    return 4  # Replace this statement
+    bacon_score = score + free_bacon(opponent_score)
+    if is_swap(bacon_score, opponent_score):
+        bacon_score, opponent_score = opponent_score, bacon_score
+    if bacon_score - score >= margin:
+        return 0
+    return num_rolls 
     # END PROBLEM 12
 
 
