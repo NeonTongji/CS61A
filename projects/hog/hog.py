@@ -22,12 +22,13 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
-    x = []
+    sum_score = 0
     for i in range(num_rolls):
-        x.append(dice())
-    if 1 in set(x):
-        return 1
-    return sum(x)  
+        x = dice()
+        if x ==1:
+            return 1
+        sum_score += x
+    return sum_score  
     # END PROBLEM 1
 
 
@@ -365,9 +366,13 @@ def final_strategy(score, opponent_score):
     bacon_score = score + free_bacon(opponent_score)
     if is_swap(bacon_score, opponent_score):
         bacon_score, opponent_score = opponent_score, bacon_score
-    if bacon_score - score >= margin:
+    if bacon_score - score > 8 or bacon_score >= 100:
         return 0
-    return num_rolls 
+    if score > 96:
+        return 1
+    if score > 94:
+        return 2
+    return 6 
     # END PROBLEM 12
 
 
