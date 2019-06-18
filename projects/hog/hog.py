@@ -366,13 +366,13 @@ def final_strategy(score, opponent_score):
     bacon_score = score + free_bacon(opponent_score)
     if is_swap(bacon_score, opponent_score):
         bacon_score, opponent_score = opponent_score, bacon_score
-    if bacon_score - score > 8 or bacon_score >= 100:
+    if bacon_score - score > 12 or bacon_score >= 100:
         return 0
-    if score > 96:
-        return 1
     if score > 94:
+        return 1
+    if score > 93:
         return 2
-    return 6 
+    return 6
     # END PROBLEM 12
 
 

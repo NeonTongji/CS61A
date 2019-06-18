@@ -4,6 +4,8 @@ def wear_jacket(temp, raining):
     return temp > 60 or raining
 
 def  is_prime(n):
+    if n == 1:
+        return False
     i = 2
     while i <= n // i:
         if n % i == 0:
