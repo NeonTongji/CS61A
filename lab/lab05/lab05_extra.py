@@ -104,7 +104,7 @@ def sprout_leaves(t, vals):
     return tree(label(t), [sprout_leaves(b, vals) for b in branches(t)])
 
 # Q7
-def add_trees(t1, t2):
+def add_trees(t1, t2): # My first solution
     """
     >>> numbers = tree(1,
     ...                [tree(2,
@@ -140,5 +140,18 @@ def add_trees(t1, t2):
       5
     """
     "*** YOUR CODE HERE ***"
+    add_label = label(t1) + label(t2)
+    b1 = branches(t1)
+    b2 = branches(t2)
+    if is_leaf(t1) and is_leaf(t2):
+        return tree(add_label)
+
+    if len(b1) == len(b2):
+        return tree(add_label, [add_trees(b[0], b[1]) for b in zip(b1, b2)])
+    elif len(b1) > len(b2):
+        return tree(add_label, [add_trees(b[0], b[1]) for b in zip(b1, b2)] + b1[len(b2)-len(b1):]) 
+    else:
+        return tree(add_label, [add_trees(b[0], b[1]) for b in zip(b1, b2)] + b2[len(b1)-len(b2):])
+
 
 
