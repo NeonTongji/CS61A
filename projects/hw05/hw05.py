@@ -468,10 +468,12 @@ def interval(a, b):
 def lower_bound(x):
     """Return the lower bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[0]
 
 def upper_bound(x):
     """Return the upper bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[1]
 
 def mul_interval(x, y):
     """Return the interval that contains the product of any value in x and any
@@ -486,6 +488,8 @@ def sub_interval(x, y):
     """Return the interval that contains the difference between any value in x
     and any value in y."""
     "*** YOUR CODE HERE ***"
+    negative_y = interval(-upper_bound(y), -lower_bound(y))
+    return add_interval(x, negative_y)
 
 def div_interval(x, y):
     """Return the interval that contains the quotient of any value in x divided by
@@ -513,8 +517,8 @@ def check_par():
     >>> lower_bound(x) != lower_bound(y) or upper_bound(x) != upper_bound(y)
     True
     """
-    r1 = interval(1, 1) # Replace this line!
-    r2 = interval(1, 1) # Replace this line!
+    r1 = interval(1, -1) # Replace this line!
+    r2 = interval(3, -4) # Replace this line!
     return r1, r2
 
 def multiple_references_explanation():
