@@ -84,6 +84,7 @@ def ensure_consistency(fn):
         if val == z[x]:
             return val
         else:
+            z[x] = None
             return None
     return helper
 
