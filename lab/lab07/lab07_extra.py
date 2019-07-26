@@ -64,6 +64,19 @@ def has_cycle(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    if link == Link.empty:
+        return False
+    cursor = link.rest
+    if cursor == link:
+        return True
+    while cursor != Link.empty:
+        l = link
+        while l != cursor:
+            if cursor.rest == l:
+                return True
+            l = l.rest
+        cursor = cursor.rest
+    return False
 
 
 def has_cycle_constant(link):
@@ -78,6 +91,15 @@ def has_cycle_constant(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    if link == Link.empty:
+        return False
+    slow, fast = link, link.rest
+    while fast != Link.empty and fast.rest != Link.empty:
+        if slow == fast or slow == fast.rest:
+            return True
+        slow, fast = slow.rest, fast.rest.rest
+    return False
+
 
 # Q12
 def reverse_other(t):
