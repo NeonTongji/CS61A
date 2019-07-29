@@ -57,8 +57,14 @@ def count_k(n, k):
         return 1
     elif n < 0:
         return 0
-    elif k == 1:
-        return 1
+    else:
+        i = 1
+        count = 0
+        while i <= k:
+            count += count_k(n - i, k)
+            i += 1
+        return count
+
     
 def pascal(row, column):
     if column == 0:
