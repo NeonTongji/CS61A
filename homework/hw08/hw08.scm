@@ -4,6 +4,7 @@
       (append (reverse (cdr lst)) (list (car lst))))
 )
 
+(define (cddr s) (cdr (cdr s)))
 (define (cadr s) (car (cdr s)))
 (define (caddr s) (cadr (cdr s)))
 
@@ -15,7 +16,12 @@
 	  (else (define with-first (cons (car lst) (trace (car lst) (cdr lst))))
 	        (define without-first (trace prev (cdr lst)))
 	        (if (> (length with-first) (length without-first)) with-first without-first))))
-  (if (null? lst) nil (trace (- (car lst) 1) lst))
+  (define (min-list lst)
+    (cond ((null? lst))
+	  ((null? (cdr lst)) (car lst))
+	  ((> (car lst) (cadr lst)) (min-list (cdr lst)))
+	  (else (min-list (cons (car lst) (cddr lst))))))
+  (trace (- (min-list lst) 1) lst)
 )
 
 
