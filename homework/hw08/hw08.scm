@@ -10,16 +10,12 @@
 
 (define (longest-increasing-subsequence lst)
   (define (trace prev lst)
-    (if (null? lst) 
-        nil
-	((define with-first (cons (car lst) (trace (car lst) (cdr lst))))
-	 (define without-first (trace prev (cdr lst)))
-         (if (>= prev (car lst)) 
-	   without-first
-	   (if (> (length with-first) (length without-first)) with-first without-first)))))
-  (if (null? lst)
-    nil
-    (trace (- (car lst) 1) lst))
+    (cond ((null? lst) nil)
+          ((>= prev (car lst)) (trace prev (cdr lst)))
+	  (else (define with-first (cons (car lst) (trace (car lst) (cdr lst))))
+	        (define without-first (trace prev (cdr lst)))
+	        (if (> (length with-first) (length without-first)) with-first without-first))))
+  (if (null? lst) nil (trace (- (car lst) 1) lst))
 )
 
 
