@@ -17,11 +17,10 @@
 	        (define without-first (trace prev (cdr lst)))
 	        (if (> (length with-first) (length without-first)) with-first without-first))))
   (define (min-list lst)
-    (cond ((null? lst))
-	  ((null? (cdr lst)) (car lst))
+    (cond ((null? (cdr lst)) (car lst))
 	  ((> (car lst) (cadr lst)) (min-list (cdr lst)))
 	  (else (min-list (cons (car lst) (cddr lst))))))
-  (trace (- (min-list lst) 1) lst)
+  (if (null? lst) nil (trace (- (min-list lst) 1) lst))
 )
 
 
