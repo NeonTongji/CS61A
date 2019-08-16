@@ -294,8 +294,8 @@ class LambdaFunction(Value):
                 comma_separated(self.parameters), comma_separated(arguments)))
         "*** YOUR CODE HERE ***"
         new_env = self.parent.copy()
-        for i in zip(self.parameters, arguments):
-            new_env[i[0]] = i[1]
+        for parameter, argument in zip(self.parameters, arguments):
+            new_env[parameter] = argument
         return self.body.eval(new_env)
 
     def __str__(self):
