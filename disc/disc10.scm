@@ -44,15 +44,15 @@
     (cons x (replicate x (- n 1)))))
 
 (define-macro (repeat-n expr n)
-  `(eval (cons 'begin (replicate ',expr ,n))))
+  (cons 'begin (replicate expr n)))
 
-(define (no-other s) (if (<= (length s) 1) s (cons (car s) (no-other (cdr (cdr s))))))
 (define-macro (prune-expr expr)
-  `(eval (cons (car ',expr) (no-other (cdr ',expr))))
+  (define (no-other s) (if (<= (length s) 1) s (cons (car s) (no-other (cdr (cdr s))))))
+  (cons (car expr) (no-other (cdr expr)))
 )
 
 (define-macro (make-stream first second)
   `(cons ,first (make-lambda ,second)))
 
-(define (cdr-stream stream)
+(define (cdr-stream-lambda stream)
   ((cdr stream)))
